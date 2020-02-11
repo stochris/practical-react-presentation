@@ -1,50 +1,289 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reset.css">
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+  <title>reveal.js</title>
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/monokai.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/black.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/monokai.css">
 
-		<script src="js/reveal.js"></script>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+</head>
 
-		<script>
-			// More info about config & dependencies:
-			// - https://github.com/hakimel/reveal.js#configuration
-			// - https://github.com/hakimel/reveal.js#dependencies
-			Reveal.initialize({
-				hash: true,
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/highlight/highlight.js' },
-					{ src: 'plugin/notes/notes.js', async: true }
-				]
-			});
-		</script>
-	</body>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h2>
+          What is Practical React
+        </h2>
+        <p class="fragment fade-in">
+          Starting from the ideea that a library should help us, not hinder us
+        </p>
+        <p class="fragment fade-in">
+          There's always a balance between what it can offer us vs what complexity it adds
+        </p>
+      </section>
+      <section>
+        <section>
+          <h2>React, usually, very practical</h2>
+          <pre class="fragment fade-in"><code class="hljs" data-trim>
+            class App extends React.Component{
+              render(){
+                return (
+                  &lt;div&gt;Hello world&lt;/div&gt;
+                )
+              }
+            }
+          </code></pre>
+          <pre class="fragment fade-in"><code class="hljs" data-trim>
+            const App = () => {
+              return (
+                &lt;div&gt;Hello world&lt;/div&gt;
+              )
+            }
+          </code></pre>
+          <p class="fragment fade-in">Si, lately .. </p>
+        </section>
+        <section data-background="https://www.reactiongifs.com/r/cheering_minions.gif">
+          <h1>Hooks</h1>
+          <h3 class="fragment fade-in">What is a hook?</h3>
+        </section>
+        <section>
+          <pre><code class="hljs" data-trim data-line-numbers="3,4, 14">
+            import React, { useState, useCallback } from 'react';
+            const App = () => {
+              const [isAGoodDay, setAGoodDay] = useState(false);
+              const onClick = useCallback(() => setAGoodDay(true), []);
+
+              if(isAGoodDay){
+                return (
+                  &lt;div&gt;
+                    Soare in februarie
+                  &lt;/div&gt;
+                )
+              } else {
+                return (
+                  &lt;div onClick={onClick}&gt;Afara ninge&lt;/div&gt;
+                )
+              }
+            }
+          </code></pre>
+        </section>
+      </section>
+      <section>
+        <h2>Why should I use this? Classes worked alright...</h2>
+        <p class="fragment fade-in">Indeed, "old school" classes did and will work very good.</p>
+        <p class="fragment fade-in">Though, what if I told you the "old school" at some point were cutting edge?</p>
+      </section>
+      <section>
+        <section data-background="https://media.giphy.com/media/3o6Ztk3jXl5MJx9VPq/giphy.gif">
+          <h2>Quick history lesson</h2>
+        </section>
+        <section>
+          <h4>When React first appeared, before JSX and even ES6 classes</h4>
+          <pre class="fragment fade-in"><code class="hljs" data-trim>
+            var React = require('react');
+            
+            var divStyle = {
+              color: 'red'
+            };
+  
+            var App = React.createClass({
+              render() {
+                return React.createElement('div', {
+                  style: divStyle
+                }, 'Hello world')
+              }
+            });
+          </code></pre>
+        </section>
+        <section>
+          <h4>After JSX</h4>
+          <pre class="fragment fade-in"><code class="hljs" data-trim>
+            var React = require('react');
+  
+            var App = React.createClass({
+              render() {
+                var divStyle = { color: 'red' };
+                return (
+                  &lt;div style={divStyle}&gt;Hello world&lt;/div&gt;
+                )
+              }
+            });
+          </code></pre>
+        </section>
+        <section>
+          <h4>After classes</h4>
+          <pre class="fragment fade-in"><code class="hljs" data-trim>
+            import React from 'react';
+  
+            class App extends React.Component {
+              render() {
+                var divStyle = { color: 'red' };
+                return (
+                  &lt;div style={divStyle}&gt;Hello world&lt;/div&gt;
+                )
+              }
+            }
+          </code></pre>
+        </section>
+        <section>
+          <h4>Functional components</h4>
+          <pre class="fragment fade-in"><code class="hljs" data-trim>
+            import React from 'react';
+
+            const App = ({ style }) => {
+              return (
+                &lt;div style={style}&gt;Hello world&lt;/div&gt;
+              )
+            }
+          </code></pre>
+        </section>
+        <section>
+          <p>Then someone came up with an ideea</p>
+          <p class="fragment fade-in">What if we have a function that creates component, wrapping other components
+            (usually called a factory)? And what if we call it a <a
+              href="https://reactjs.org/docs/higher-order-components.html">High Order Component</a> (HOC)?</p>
+          <pre class="fragment fade-in"><code class="hljs" data-trim>
+            const withLocation = (WrappedComponent) => {
+              return class extends React.Component {
+                render() {
+                  return &lt;WrappedComponent {...this.props} location={window.location} /&gt;
+                }
+              }
+            }
+  
+            class App extends React.Component {
+              render() {
+                return (
+                  &lt;div&gt;Hello world&lt;/div&gt;
+                )
+              }
+            }
+            const WrappedApp = withLocation(App);
+          </code></pre>
+
+        </section>
+        <section>
+          <p>Then something called <a href="https://reactjs.org/docs/render-props.html">Render props</a></p>
+          <pre class="fragment fade-in"><code class="hljs" data-trim>
+            const App = () => (
+              &lt;DataProvider render={data => {
+                return &lt;h1&gt;Hello {data.target}&lt;/h1&gt;
+              }}
+              /&gt;
+            )
+          </code></pre>
+          <p class="fragment fade-in"> .. and a special case of this called Child as a Function</p>
+          <pre class="fragment fade-in"><code class="hljs" data-trim>
+            const App = () => (
+              &lt;OtherDataProvider&gt;
+              {(data) => {
+                return &lt;h1&gt;Hello {data.target}&lt;/h1&gt;
+              }}
+              &lt;/OtherDataProvider&gt;
+            )
+            
+          </code></pre>
+        </section>
+      </section>
+      <section>
+        <section>
+          <h4>So, while there are a lot of stuff you can use to get the job done, most of the powerful stuff still need
+            classes</h4>
+        </section>
+        <section>
+          <p>How awesome would it be if you could use a simple function, but with the power of
+            a class?</p>
+          <p class="fragment fade-in">Meet <a href="https://reactjs.org/docs/hooks-intro.html">hooks</a></p>
+          <pre class="fragment fade-in"><code class="hljs" data-trim>
+            // there are a few of the standard hooks
+            import React, { useState, useCallback, useMemo, useEffect } from 'react';
+            const App = () => {
+              // this keeps a value between renders
+              const [value, setValue] = useState(0);
+              // a memoized value is a value computed only when the depencies array ([value]) changes
+              // this is done in order to prevent extra work for the computer
+              const memoizedValue = useMemo(() => value+1, [value]);
+              // this is just like a normal function, but it's memoized between renders
+              const callback = useCallback(() => {
+                console.log('Callback called');
+              }, [value]);
+              // useEffect recieved a functions and calls it whenever something in the deps array changes
+              // in this case, it's only called on mount
+              useEffect(() => {
+                console.log('Mount');
+                // you can return a function that will be called on the components unmount
+                return () => {
+                  console.log('Unmount');
+                }
+              }, [])
+              
+              // this gets called whenever value changes
+              useEffect(() => {
+                console.log('New value is ', value);
+              }, [value]);
+              return (
+                &lt;div&gt;
+                  Hello world
+                &lt;/div&gt;
+              )
+            }
+          </code></pre>
+        </section>
+      </section>
+      <section data-background="https://media.giphy.com/media/3otPoUkg3hBxQKRJ7y/giphy.gif"></section>
+      <section>
+        <section>
+          <h2>Now, to practical react</h2>
+          <p>If you'd like to watch the live coding on your own computer, go into VSCode and install "Live Share
+            extension Pack"</p>
+          <img src="/assets//live-share-1.png" />
+        </section>
+        <section>
+          <p>You should now have a new icon in your Code sidebar</p>
+          <img src="/assets/live-share-2.png" />
+          <p>Click on it, and then select "Join collaboration session",  and either continue as read-only or sign in with your GitHub</p>
+          <p>After which, join the following url [url]</p>
+        </section>
+      </section>
+      <section>
+        <h2>Now, to React Native</h2>
+      </section>
+    </div>
+  </div>
+
+  <script src="js/reveal.js"></script>
+
+  <script>
+    // More info about config & dependencies:
+    // - https://github.com/hakimel/reveal.js#configuration
+    // - https://github.com/hakimel/reveal.js#dependencies
+    Reveal.initialize({
+      hash: true,
+      dependencies: [
+        { src: 'plugin/markdown/marked.js' },
+        { src: 'plugin/markdown/markdown.js' },
+        { src: 'plugin/highlight/highlight.js' },
+        { src: 'plugin/notes/notes.js', async: true }
+      ]
+    });
+  </script>
+</body>
+
 </html>
